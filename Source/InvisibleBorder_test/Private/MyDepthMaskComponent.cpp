@@ -50,11 +50,20 @@ EFunctionStateEnum UMyDepthMaskComponent::Initialize(FVector2D CanvasSize, UText
 		dynamicPainter = new DynamicPainter(FrameSize(CanvasSize));
 
 	ChanneledImpactRatio* TempChanneledImpactRatio = new ChanneledImpactRatio(fourChannelImpactRatio.channel_1_impactRatio,
-																			  fourChannelImpactRatio.channel_2_impactRatio,
-																			  fourChannelImpactRatio.channel_3_impactRatio,
-																			  fourChannelImpactRatio.channel_4_impactRatio);
+																			                                      fourChannelImpactRatio.channel_2_impactRatio,
+																			                                      fourChannelImpactRatio.channel_3_impactRatio,
+																			                                      fourChannelImpactRatio.channel_4_impactRatio);
+  try
+  {
+    dynamicPainter->Initialize(Texture, brush, AgingStep, ImpactRatio, TempChanneledImpactRatio, withCompression);
+    return EFunctionStateEnum::FS_SUCCESSFUL;
 
-	dynamicPainter->Initialize(Texture, brush, AgingStep, ImpactRatio, TempChanneledImpactRatio, withCompression);
+  }
+  catch (...)
+  {
+    return EFunctionStateEnum::FS_FAILURE;
+  }
+	
 }
 void UMyDepthMaskComponent::RegisterTexture(UTexture2D*& Texture)
 {
@@ -111,18 +120,18 @@ void UMyDepthMaskComponent::CreateCircleBrush(int circleRadius, float Axx, float
 
 EFunctionStateEnum UMyDepthMaskComponent::RotateBrush(float angle, FIntPoint pivotPoint)
 {
-	if (brush)
-	{
-		try
-		{
-			brush->rotate(angle, pivotPoint);
-			return EFunctionStateEnum::FS_SUCCESSFUL;
-		}
-		catch(...)
-		{
-			return EFunctionStateEnum::FS_FAILURE;
-		}
-    }  
-	else
-		return EFunctionStateEnum::FS_DEPENDENCY_FAILURE;
+  if (brush)
+  {
+    try
+    {
+      brush->rotate(angle, pivotPoint);
+      return EFunctionStateEnum::FS_SUCCESSFUL;
+    }
+    catch (...)
+    {
+      return EFunctionStateEnum::FS_FAILURE;
+    }
+  }
+  else
+    return EFunctionStateEnum::FS_DEPENDENCY_FAILURE;
 }
