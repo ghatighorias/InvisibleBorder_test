@@ -14,7 +14,7 @@ class INVISIBLEBORDER_TEST_API DynamicPainter
 {
 
 public:
-	DynamicPainter(FrameSize CanvasSize);
+	DynamicPainter(FIntPoint CanvasSize);
 	~DynamicPainter();
 	void Initialize(UTexture2D*& Texture, MaskBrush* Brush, int32 AgingStep,
 		float ImpactRatio, ChanneledImpactRatio* channeledImpactRatio, bool withCompression=false);
@@ -31,20 +31,18 @@ public:
   bool isInitializedSuccessfully();
 private:
 	MaskBrush* brush;
-	FrameSize brushSize;
+  FIntPoint brushSize;
 	uint32* bufferedDynamicMask;
 	int32   bufferSize;
 	UTexture2D* dynamicMask;
 
 	int32 agingStep;
 	float impactRatio;
-	FrameSize canvasSize;
-	ImpactRange impactRange;
+  FIntPoint canvasSize;
 	ChanneledImpactRatio* channeledImpactRatio;
 
 	void freeCanvas();
-	void setUpCanvas(FrameSize CanvasSize);
-	void set_mask_impact_index(int32 X, int32 Y);
+	void setUpCanvas(FIntPoint CanvasSize);
 
 	inline bool is_position_in_range(int32 X, int32 Y);
 	int Add_with_cap_255(int currentValue, int& increment, int multiplier);

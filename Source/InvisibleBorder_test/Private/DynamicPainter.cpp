@@ -6,7 +6,7 @@
 
 using namespace std;
 
-DynamicPainter::DynamicPainter(FrameSize CanvasSize):bufferedDynamicMask(nullptr), dynamicMask(nullptr), bufferSize(0)
+DynamicPainter::DynamicPainter(FIntPoint CanvasSize):bufferedDynamicMask(nullptr), dynamicMask(nullptr), bufferSize(0)
 {
   setUpCanvas(CanvasSize);
 }
@@ -21,10 +21,9 @@ bool DynamicPainter::isInitializedSuccessfully()
   return bufferedDynamicMask && dynamicMask && brush;
 }
 
-void DynamicPainter::setUpCanvas(FrameSize CanvasSize)
+void DynamicPainter::setUpCanvas(FIntPoint CanvasSize)
 {
   canvasSize = CanvasSize;
-  impactRange = ImpactRange();
   bufferSize = canvasSize.X * canvasSize.Y;
   bufferedDynamicMask = new uint32[bufferSize];
   resetBufferedDynamicMask();
@@ -45,19 +44,7 @@ void DynamicPainter::freeCanvas()
   bufferSize = 0;
 	bufferedDynamicMask = nullptr;
 	dynamicMask = nullptr;
-	canvasSize = FVector2D();
-}
-
-void DynamicPainter::set_mask_impact_index(int32 X, int32 Y)
-{
-	impactRange.VerticalLowerBoundary =
-		Y - (brushSize.Y / 2) >= 0 ? Y - (brushSize.Y / 2) : 0;
-	impactRange.VerticalUpperBoundary =
-		Y + (brushSize.Y / 2) < canvasSize.Y ? Y + (brushSize.Y / 2) : canvasSize.Y - 1;
-	impactRange.HorizentalLowerBoundary =
-		X - (brushSize.X / 2) >= 0 ? X - (brushSize.X / 2) : 0;
-	impactRange.HorizentalUpperBoundary =
-		X + (brushSize.X / 2) < canvasSize.X ? X + (brushSize.X / 2) : canvasSize.X - 1;
+	canvasSize = FIntPoint();
 }
 
 void DynamicPainter::Initialize(UTexture2D*& Texture, MaskBrush* Brush, int32 AgingStep,

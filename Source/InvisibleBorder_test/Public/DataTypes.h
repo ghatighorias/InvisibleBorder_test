@@ -13,20 +13,6 @@ struct ImpactRange
   }
 };
 
-struct FrameSize
-{
-  int32 X;
-  int32 Y;
-
-  FrameSize() :X(0), Y(0) {}
-  FrameSize(int x, int y) :X(x), Y(y) {}
-  FrameSize(FVector2D size)
-  {
-    X = (int)size.X;
-    Y = (int)size.Y;
-  }
-};
-
 struct ChanneledImpactRatio {
 public:
   int channel_1_impactRatio;

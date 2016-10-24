@@ -41,13 +41,13 @@ bool UMyDepthMaskComponent::IsInitializedSuccessfully()
   return false;
 }
 
-EFunctionStateEnum UMyDepthMaskComponent::Initialize(FVector2D CanvasSize, UTexture2D*& Texture, int32 AgingStep, FFourChannelImpactRatio fourChannelImpactRatio, float ImpactRatio, bool withCompression)
+EFunctionStateEnum UMyDepthMaskComponent::Initialize(FIntPoint CanvasSize, UTexture2D*& Texture, int32 AgingStep, FFourChannelImpactRatio fourChannelImpactRatio, float ImpactRatio, bool withCompression)
 {
 	if (!brush)
 		return EFunctionStateEnum::FS_DEPENDENCY_FAILURE;
 	
 	if (!dynamicPainter)
-		dynamicPainter = new DynamicPainter(FrameSize(CanvasSize));
+		dynamicPainter = new DynamicPainter(CanvasSize);
 
 	ChanneledImpactRatio* TempChanneledImpactRatio = new ChanneledImpactRatio(fourChannelImpactRatio.channel_1_impactRatio,
 																			                                      fourChannelImpactRatio.channel_2_impactRatio,
@@ -81,7 +81,7 @@ void UMyDepthMaskComponent::UpdateMaskTexture()
 {
 	dynamicPainter->updateMaskBuffer();
 }
-void UMyDepthMaskComponent::ImpactInPosition(FVector2D ImpactPosition)
+void UMyDepthMaskComponent::ImpactInPosition(FIntPoint ImpactPosition)
 {
 	dynamicPainter->addImpactInPosition(ImpactPosition.X, ImpactPosition.Y);
 }
