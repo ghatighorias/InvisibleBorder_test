@@ -51,7 +51,7 @@ public:
 
 
 	UFUNCTION(BlueprintCallable, Category = "Dynamic Mask")
-		void Initialize(FVector2D CanvasSize, UTexture2D*& Texture, int32 AgingStep, FFourChannelImpactRatio fourChannelImpactRatio, float ImpactRatio = 3, bool withCompression = false);
+    EFunctionStateEnum Initialize(FVector2D CanvasSize, UTexture2D*& Texture, int32 AgingStep, FFourChannelImpactRatio fourChannelImpactRatio, float ImpactRatio = 3, bool withCompression = false);
 	UFUNCTION(BlueprintCallable, Category = "Dynamic Mask")
 		void RegisterTexture(UTexture2D*& Texture);
 	UFUNCTION(BlueprintCallable, Category = "Dynamic Mask")
