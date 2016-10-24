@@ -54,20 +54,20 @@ protected:
 			brushBuffer[index] = 0;
 	}
 
-	void fillHoles(int* buffer, int cubeSize)
+	void fillHoles(int* buffer)
 	{
 		if (!buffer)
 			return;
 
-		for (int y = 1; y< cubeSize - 1; y++)
-			for (int x = 1; x< cubeSize - 1; x++)
+		for (int y = 1; y< bufferFrameHeight - 1; y++)
+			for (int x = 1; x< bufferFrameWidth - 1; x++)
 			{
-				if (buffer[y * cubeSize + x] == 0 &&
-					buffer[(y + 1) * cubeSize + (x + 0)] == 1 &&
-					buffer[(y - 1) * cubeSize + (x + 0)] == 1 &&
-					buffer[(y + 0) * cubeSize + (x + 1)] == 1 &&
-					buffer[(y + 0) * cubeSize + (x - 1)] == 1)
-					buffer[y * cubeSize + x] = 1;
+				if (buffer[y * bufferFrameWidth + x] == 0 &&
+					buffer[(y + 1) * bufferFrameWidth + (x + 0)] == 1 &&
+					buffer[(y - 1) * bufferFrameWidth + (x + 0)] == 1 &&
+					buffer[(y + 0) * bufferFrameWidth + (x + 1)] == 1 &&
+					buffer[(y + 0) * bufferFrameWidth + (x - 1)] == 1)
+					buffer[y * bufferFrameWidth + x] = 1;
 			}
 	}
 
@@ -75,9 +75,10 @@ public:
 	FIntPoint brushSize;
 	int bufferSize;
 	int* brushBuffer;
-	int cubeCols;
+	int bufferFrameWidth;
+	int bufferFrameHeight;
 
-	MaskBrush() : cubeCols(0), bufferSize(0), brushBuffer(nullptr) {}
+	MaskBrush() : bufferFrameWidth(0), bufferFrameHeight(0), bufferSize(0), brushBuffer(nullptr) {}
 	~MaskBrush()
 	{
 		bufferSize = 0;
@@ -85,30 +86,8 @@ public:
 			delete[] brushBuffer;
 		brushBuffer = nullptr;
 	}
-
-	/*
-	void CreateCircleBrush(int circleRadius)
-	{
-		int cubeSide = 2 * circleRadius + 1;
-		brushSize = FIntPoint(cubeSide, cubeSide);
-		resetBuffer(cubeSide * cubeSide);
-
-		for (int y = -circleRadius; y <= circleRadius; y++)
-			for (int x = -circleRadius; x <= circleRadius; x++)
-				if (x * x + y * y <= circleRadius * circleRadius)
-					brushBuffer[(circleRadius + y) * cubeSide + (circleRadius + x)] = 1;
-	}
-
-	void CreateRectangleBrush(int width, int height)
-	{
-		brushSize = FIntPoint(width, height);
-		resetBuffer(width * height);
-		for (int index = 0; index< width * height; index++)
-			brushBuffer[index] = 1;
-	}
-	*/
-
-	void rotate(int cubeSize, float angle, FIntPoint pivotPoint)
+	
+	void rotate(float angle, FIntPoint pivotPoint)
 	{
 		int* rotatedBuffer = new int[bufferSize];
 		for (int index = 0; index< bufferSize; index++)
@@ -117,8 +96,8 @@ public:
 		float s = sin(angle * PI / 180);
 		float c = cos(angle * PI / 180);
 
-		for (int y = 0; y < cubeSize; y++)
-			for (int x = 0; x < cubeSize; x++)
+		for (int y = 0; y < bufferFrameHeight; y++)
+			for (int x = 0; x < bufferFrameWidth; x++)
 			{
 				// translate point back to origin:
 				int oX = x - pivotPoint.X;
@@ -134,10 +113,10 @@ public:
 				oY = ynew + pivotPoint.Y;
 
 				if (oX>=0 && oX <cubeSize && oY>=0 && oY <cubeSize)
-					rotatedBuffer[oY * cubeSize + oX] = brushBuffer[y * cubeSize + x];
+					rotatedBuffer[oY * bufferFrameWidth + oX] = brushBuffer[y * bufferFrameWidth + x];
 			}
 
-		fillHoles(rotatedBuffer, cubeSize);
+		fillHoles(rotatedBuffer);
 
 		delete[] brushBuffer;
 		brushBuffer = rotatedBuffer;
@@ -153,14 +132,16 @@ public:
 
 	void Initialize(int circleRadius, float Axx = 1, float Ayy = 1)
 	{
-		cubeCols = 2 * circleRadius + 1;
-		brushSize = FIntPoint(cubeCols, cubeCols);
+	        bufferFrameWidth = 2 * circleRadius + 1;
+		bufferFrameHeight = 2 * circleRadius + 1;
+		
+		brushSize = FIntPoint(bufferFrameWidth, bufferFrameHeight);
 		resetBuffer(brushSize.X * brushSize.Y);
 
 		for (int y = -circleRadius; y <= circleRadius; y++)
 			for (int x = -circleRadius; x <= circleRadius; x++)
 				if (Axx*x*x + Ayy*y*y <= circleRadius*circleRadius)
-					brushBuffer[(circleRadius + y) * cubeCols + (circleRadius + x)] = 1;
+					brushBuffer[(circleRadius + y) * brushSize.X + (circleRadius + x)] = 1;
 	}
 };
 
@@ -171,7 +152,9 @@ public:
 	~RectangleBrush() {}
 	void Initialize(int width, int height)
 	{
-		cubeCols = width;
+	        bufferFrameWidth = width;
+		bufferFrameHeight = height;
+		
 		brushSize = FIntPoint(width, height);
 		resetBuffer(width * height);
 		for (int index = 0; index < width * height; index++)
