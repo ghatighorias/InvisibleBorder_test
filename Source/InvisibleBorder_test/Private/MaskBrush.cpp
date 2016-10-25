@@ -1,4 +1,7 @@
 #include "InvisibleBorder_test.h"
+#ifndef DATATYPES_H
+#include "DataTypes.h"
+#endif
 #include "MaskBrush.h"
 
 void MaskBrush::resetBuffer(int size)

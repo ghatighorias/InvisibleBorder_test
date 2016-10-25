@@ -108,7 +108,7 @@ void UMyDepthMaskComponent::CreateRectangleBrush(int32 Width, int32 Height)
 	rBrush->Initialize(Width, Height);
 	brush = rBrush;
 }
-void UMyDepthMaskComponent::CreateCircleBrush(int circleRadius, float Axx, float Ayy)
+void UMyDepthMaskComponent::CreateCircleBrush(int32 circleRadius, float Axx, float Ayy)
 {
 	if (brush)
 		delete brush;

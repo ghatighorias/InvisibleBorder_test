@@ -57,7 +57,6 @@ void DynamicPainter::Initialize(UTexture2D*& Texture, MaskBrush* Brush, int32 Ag
 	setImpactRatio(ImpactRatio);
 }
 
-// it is better that odd numbers are given
 void DynamicPainter::setBrush(MaskBrush* Brush)
 {
 	brush = Brush;
@@ -129,11 +128,6 @@ void DynamicPainter::updateMaskBuffer()
 	FMemory::Memcpy(Dest, Src, Size);
 	Texture->PlatformData->Mips[0].BulkData.Unlock();
 	Texture->UpdateResource();
-}
-
-inline bool DynamicPainter::is_position_in_range(int32 X, int32 Y)
-{
-	return (Y >= 0 && Y < canvasSize.X) && (Y >= 0 && Y < canvasSize.Y);
 }
 
 inline int DynamicPainter::calculate_impact_ratio_in_position(FIntPoint brushSize, float impactRatio, int X, int Y, int currentIndexX, int currentIndexY)

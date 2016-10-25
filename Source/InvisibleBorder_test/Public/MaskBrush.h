@@ -1,5 +1,5 @@
-
-#define PI 3.14159265
+#ifndef MASKBRUSH_H
+#define MASKBRUSH_H
 
 class MaskBrush
 {
@@ -34,3 +34,5 @@ public:
   ~RectangleBrush();
   void Initialize(int width, int height);
 };
+
+#endif

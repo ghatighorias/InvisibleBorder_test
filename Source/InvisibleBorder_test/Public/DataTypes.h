@@ -1,3 +1,8 @@
+#ifndef DATATYPES_H
+#define DATATYPES_H
+
+#define PI 3.14159265
+
 struct ImpactRange
 {
   int32 HorizentalLowerBoundary;
@@ -28,3 +33,5 @@ public:
     channel_4_impactRatio = channel4;
   }
 };
+
+#endif

@@ -10,6 +10,9 @@
 #include "DataTypes.h"
 #include "MaskBrush.h"
 
+#ifndef DYNAMICPAINTER_H
+#define DYNAMICPAINTER_H
+
 class INVISIBLEBORDER_TEST_API DynamicPainter
 {
 
@@ -18,7 +21,6 @@ public:
 	~DynamicPainter();
 	void Initialize(UTexture2D*& Texture, MaskBrush* Brush, int32 AgingStep,
 		float ImpactRatio, ChanneledImpactRatio* channeledImpactRatio, bool withCompression=false);
-	// it is better that odd numbers are given
 	void setBrush(MaskBrush* Brush);
 	void registerTexture(UTexture2D*& Texture, bool withCompression=false);
 	void setAgingStep(int32 AgingStep);
@@ -29,6 +31,7 @@ public:
 	void updateMaskBuffer();
   void resetBufferedDynamicMask();
   bool isInitializedSuccessfully();
+
 private:
 	MaskBrush* brush;
   FIntPoint brushSize;
@@ -44,10 +47,11 @@ private:
 	void freeCanvas();
 	void setUpCanvas(FIntPoint CanvasSize);
 
-	inline bool is_position_in_range(int32 X, int32 Y);
 	int Add_with_cap_255(int currentValue, int& increment, int multiplier);
 	uint32 Add_to_quad(uint32* currentValue, int incrementStep, ChanneledImpactRatio* channeledImpactRatio);
 	inline uint32 Sub_from_quad(uint32* currentValue, int decreamentStep);
 	inline int calculate_impact_ratio_in_position(FIntPoint brushSize, float impactRatio, int X, int Y, int currentIndexX, int currentIndexY);
 
 };
+
+#endif
