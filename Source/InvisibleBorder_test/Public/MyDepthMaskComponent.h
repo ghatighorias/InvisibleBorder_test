@@ -51,6 +51,8 @@ public:
 		void CreateCircleBrush(int32 circleRadius, float Axx = 1, float Ayy = 1);
 	UFUNCTION(BlueprintCallable, Category = "Dynamic Mask")
 		EFunctionStateEnum RotateBrush(float angle, FIntPoint pivotPoint);
+  UFUNCTION(BlueprintCallable, Category = "Dynamic Mask")
+    void reSetBrush();
 
 private:
 	DynamicPainter* dynamicPainter;

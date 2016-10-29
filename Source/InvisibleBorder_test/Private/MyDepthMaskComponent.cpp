@@ -135,3 +135,9 @@ EFunctionStateEnum UMyDepthMaskComponent::RotateBrush(float angle, FIntPoint piv
   else
     return EFunctionStateEnum::FS_DEPENDENCY_FAILURE;
 }
+
+void UMyDepthMaskComponent::reSetBrush()
+{
+  if (brush && dynamicPainter)
+    dynamicPainter->setBrush(brush);
+}

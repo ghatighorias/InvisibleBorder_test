@@ -3,6 +3,9 @@
 #include "GameFramework/Actor.h"
 #include "BlueprintDataTypes.generated.h"
 
+/// this dummy class is needed, unless this file won't compile successfully.
+/// Datatypes such as UENUM and USTRUCT won't be compile without a UCLASS in the same file
+/// This is rather an UE4 issue.
 UCLASS()
 class INVISIBLEBORDER_TEST_API ABlueprintDataTypes : public AActor
 {

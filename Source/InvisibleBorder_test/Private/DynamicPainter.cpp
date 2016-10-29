@@ -95,7 +95,7 @@ void DynamicPainter::addImpactInPosition(int X, int Y)
 	  {
 		  int index_in_mask_buffer = (j + Y)*canvasSize.X + (i + X);
 		  if (index_in_mask_buffer < bufferSize && index_in_mask_buffer >= 0 && brush->brushBuffer[(int)((j + brush->brushSize.Y / 2)*brush->brushSize.X + (i + brush->brushSize.X / 2))])
-			  bufferedDynamicMask[index_in_mask_buffer] = fmin((int64)bufferedDynamicMask[index_in_mask_buffer] + 20, pow(2, 32));//Add_to_quad(&bufferedDynamicMask[index_in_mask_buffer], 20/*calculate_impact_ratio_in_position(brush->brushSize, impactRatio, X, Y, i + brush->brushSize.X / 2, j + brush->brushSize.Y / 2)*/, channeledImpactRatio);
+			  bufferedDynamicMask[index_in_mask_buffer] = Add_to_quad(&bufferedDynamicMask[index_in_mask_buffer], calculate_impact_ratio_in_position(brush->brushSize, impactRatio, X, Y, i + brush->brushSize.X / 2, j + brush->brushSize.Y / 2), channeledImpactRatio);
 	  }
 }
 
