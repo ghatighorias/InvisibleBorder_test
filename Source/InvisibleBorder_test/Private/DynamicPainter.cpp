@@ -107,7 +107,7 @@ void DynamicPainter::age()
 
 void DynamicPainter::ageStepByOne()
 {
-	uint64 temp;
+	int64 temp;
 	for (int index = 0; index < bufferSize; index++)
 	{
 		temp = bufferedDynamicMask[index];
@@ -130,10 +130,11 @@ void DynamicPainter::updateMaskBuffer()
 	Texture->UpdateResource();
 }
 
+
 inline int DynamicPainter::calculate_impact_ratio_in_position(FIntPoint brushSize, float impactRatio, int X, int Y, int currentIndexX, int currentIndexY)
 {
-	return (abs((1 + trunc(brushSize.X / 2) - abs(X - currentIndexX)) / trunc(brushSize.X / 2) +
-		(1 + trunc(brushSize.Y / 2) - abs(Y - currentIndexY)) / trunc(brushSize.Y / 2))) / 2 * impactRatio;
+	return /*(abs((1 + trunc(brushSize.X / 2) - abs(brushSize.X / 2 - currentIndexX)) / trunc(brushSize.X / 2) +
+		(1 + trunc(brushSize.Y / 2) - abs(brushSize.Y / 2 - currentIndexY)) / trunc(brushSize.Y / 2))) / 2 * */ impactRatio;
 }
 
 inline int DynamicPainter::Add_with_cap_255(int currentValue, int& increment, int multiplier)
