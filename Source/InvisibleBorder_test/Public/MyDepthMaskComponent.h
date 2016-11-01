@@ -53,6 +53,8 @@ public:
 		EFunctionStateEnum RotateBrush(float angle, FIntPoint pivotPoint);
   UFUNCTION(BlueprintCallable, Category = "Dynamic Mask")
     void reSetBrush();
+  UFUNCTION(BlueprintCallable, Category = "Dynamic Mask")
+    void setChanneledImpactRatio(FFourChannelImpactRatio fourChannelImpactRatio);
 
 private:
 	DynamicPainter* dynamicPainter;

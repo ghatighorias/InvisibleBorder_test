@@ -31,6 +31,7 @@ public:
 	void updateMaskBuffer();
   void resetBufferedDynamicMask();
   bool isInitializedSuccessfully();
+  void setChanneledImpactRatio(ChanneledImpactRatio* ChanneledImpactRatio);
 
 private:
 	MaskBrush* brush;

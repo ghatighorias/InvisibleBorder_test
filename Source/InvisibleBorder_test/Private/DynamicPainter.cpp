@@ -88,6 +88,13 @@ void DynamicPainter::setImpactRatio(float ImpactRatio)
   impactRatio = ImpactRatio;
 }
 
+void DynamicPainter::setChanneledImpactRatio(ChanneledImpactRatio* ChanneledImpactRatio)
+{
+  if (channeledImpactRatio)
+    delete channeledImpactRatio;
+  channeledImpactRatio = ChanneledImpactRatio;
+}
+
 void DynamicPainter::addImpactInPosition(int X, int Y)
 {
   for (int j = -brush->brushSize.Y / 2; j <= brush->brushSize.Y / 2; j++)

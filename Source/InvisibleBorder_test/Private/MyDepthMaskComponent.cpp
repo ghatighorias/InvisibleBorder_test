@@ -65,6 +65,12 @@ EFunctionStateEnum UMyDepthMaskComponent::Initialize(FIntPoint CanvasSize, UText
   }
 	
 }
+
+//void UMyDepthMaskComponent::setChanneledImpactRatio(ChanneledImpactRatio* fourChannelImpactRatio)
+//{
+//  dynamicPainter->setChanneledImpactRatio(fourChannelImpactRatio);
+//}
+
 void UMyDepthMaskComponent::RegisterTexture(UTexture2D*& Texture)
 {
 	dynamicPainter->registerTexture(Texture);
@@ -140,4 +146,14 @@ void UMyDepthMaskComponent::reSetBrush()
 {
   if (brush && dynamicPainter)
     dynamicPainter->setBrush(brush);
+}
+
+void UMyDepthMaskComponent::setChanneledImpactRatio(FFourChannelImpactRatio fourChannelImpactRatio)
+{
+  ChanneledImpactRatio* TempChanneledImpactRatio = new ChanneledImpactRatio(fourChannelImpactRatio.channel_1_impactRatio,
+    fourChannelImpactRatio.channel_2_impactRatio,
+    fourChannelImpactRatio.channel_3_impactRatio,
+    fourChannelImpactRatio.channel_4_impactRatio);
+
+  dynamicPainter->setChanneledImpactRatio(TempChanneledImpactRatio);
 }
